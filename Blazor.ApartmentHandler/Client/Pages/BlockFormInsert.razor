@@ -1,0 +1,68 @@
+﻿@page "/insertBlock"
+@using Blazor.ApartmentHandler.Shared.Entities
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<PageTitle>Insert Block</PageTitle>
+
+<h1>Insert Block</h1>
+
+@*<p>Complete the following form to add the block.</p>*@
+<EditForm Model="blockDTO" OnSubmit="@FormSubmitted">
+	<DataAnnotationsValidator />
+	<ValidationSummary/>
+
+
+
+	<button type="submit">Click to add block</button>
+</EditForm>
+
+
+@code {
+	//[Parameter]
+	//[SupplyParameterFromQuery(Name="blockId")]
+	//public int? blockId { get; set; }
+	//private int numberOfPersons = 0;
+	public EditContext? editContext;
+
+	private BlockDTO blockDTO = new() { };
+	//private BlockDTO block;
+
+
+	protected override void OnInitialized()
+	{
+		//apartmentDTO.BlockId = (int)blockId;
+	}
+
+	//protected override async Task OnInitializedAsync()
+	//{
+
+	//	block = await Http.GetFromJsonAsync<BlockDTO>($"api/Blocks/{blockId}");// pt update: gasesc factura si de acolo extrag id-ul apartamentului
+	//	// exista apartamentul asta?
+	//	//numberOfPersons = apartment.NumberOfPersons;
+	//}
+
+	async Task FormSubmitted(EditContext editContext)
+	{
+		bool formIsValid = editContext.Validate();
+
+		if (formIsValid) {
+			var json_body = new
+			{
+				//BillId = billDTO.BillId,
+				//Month = billDTO.Month,
+				//Year = billDTO.Year,
+				//ApartmentId = billDTO.ApartmentId,
+				//WaterConsumption = billDTO.WaterConsumption,
+				//BillValue = billDTO.BillValue
+				BlockID=blockDTO.Id
+				
+			};
+
+			await Http.PostAsJsonAsync("api/Blocks", json_body);
+
+			UriHelper.NavigateTo($"blocks");
+		}
+	}
+
+}

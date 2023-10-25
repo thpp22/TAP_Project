@@ -1,0 +1,79 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = browser
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = true
+build_property.IncludeAllContentForSelfExtract = 
+build_property.RootNamespace = Blazor.ApartmentHandler.Client
+build_property.RootNamespace = Blazor.ApartmentHandler.Client
+build_property.ProjectDir = C:\Users\User\Downloads\TAP.ApartmentHandler-master\TAP.ApartmentHandler-master\Blazor.ApartmentHandler\Client\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\User\Downloads\TAP.ApartmentHandler-master\TAP.ApartmentHandler-master\Blazor.ApartmentHandler\Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/ApartmentFormEdit.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBhcnRtZW50Rm9ybUVkaXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/ApartmentFormInsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBhcnRtZW50Rm9ybUluc2VydC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/BillsFormInsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmlsbHNGb3JtSW5zZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/BlockFormDelete.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmxvY2tGb3JtRGVsZXRlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/BlockFormInsert.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmxvY2tGb3JtSW5zZXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/FetchApartments.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hBcGFydG1lbnRzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/FetchBills.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hCaWxscy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/FetchBlocks.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hCbG9ja3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-ga237iuvuo
+
+[C:/Users/User/Downloads/TAP.ApartmentHandler-master/TAP.ApartmentHandler-master/Blazor.ApartmentHandler/Client/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-0xo31gfrx7

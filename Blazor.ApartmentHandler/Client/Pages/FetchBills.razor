@@ -1,0 +1,76 @@
+﻿@page "/blocks/{blockId}/apartments/{apId}/bills"
+@using Blazor.ApartmentHandler.Shared.Entities
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<PageTitle>Bills for apartment @apId</PageTitle>
+
+<h1>Bill list for apartment @apId</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (bills == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="@insertBill">Add Bill</button>
+    <button class="btn btn-primary" @onclick="@goBackToApartments">Go back</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Bill Id</th>
+                <th>Year</th>
+                <th>Month</th>
+                <th>Water Consumption</th>
+                <th>Bill Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bill in bills)
+            {
+                <tr>
+                    <td>@bill.BillId</td>
+                    <td>@bill.Year</td>
+                    <td>@bill.Month</td>
+                    <td>@bill.WaterConsumption</td>
+                    <td>@bill.BillValue</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public string? blockId { get; set; }
+
+    [Parameter]
+    public string? apId { get; set; }
+
+    private List<BillDTO> bills = new List<BillDTO>();
+    private ApartmentDTO apartment;
+
+    protected override async Task OnInitializedAsync()
+    {
+        apartment = await Http.GetFromJsonAsync<ApartmentDTO>($"api/Apartments/{apId}");
+        //block.ApartmentIds.ForEach()
+
+        foreach(int billId in apartment.BillsIds)
+        {
+            bills.Add(await Http.GetFromJsonAsync<BillDTO>($"api/Bills/{billId}"));
+        }
+        //bills = await Http.GetFromJsonAsync<BillDTO[]>("api/Bills");
+    }
+
+    private void insertBill()
+    {
+        UriHelper.NavigateTo($"insertBill?apartmentId={apId}");
+    }
+
+    private void goBackToApartments()
+    {
+        UriHelper.NavigateTo($"/blocks/{blockId}/apartments/");
+    }
+}

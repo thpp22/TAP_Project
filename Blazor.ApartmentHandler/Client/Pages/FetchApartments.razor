@@ -1,0 +1,87 @@
+﻿@page "/blocks/{blockId}/apartments"
+@using Blazor.ApartmentHandler.Shared.Entities
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<PageTitle>Apartments</PageTitle>
+
+<h1>Apartments</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (apartments == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="@goBackToBlocks">Go back</button>
+    <button class="btn btn-primary" @onclick="@ApartmentInsert">Insert Apartment</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Apartment Id</th>
+                <th>Apartment Number</th>
+                <th>Number of Persons</th>
+                <th>Number of Bills</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var apartment in apartments)
+            {
+                <tr>
+                    <td>@apartment.Id</td>
+                    <td>@apartment.Nr</td>
+                    <td>@apartment.NumberOfPersons</td>
+                    <td>@apartment.BillsIds.Count</td>
+                    <td><button class="btn btn-primary" @onclick="() => ApartmentNavigate(apartment.BlockId, apartment.Id)">View Bills</button></td>
+                    <td><button class="btn btn-primary" @onclick="() => ApartmentNavigateEdit(apartment.BlockId, apartment.Id)">Edit Apartment</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    [Parameter]
+    public string? blockId { get; set; }
+
+    private List<ApartmentDTO> apartments = new List<ApartmentDTO>(); // ApartmentDTO[]?
+    private BlockDTO block;
+
+    protected override async Task OnInitializedAsync()
+    {
+        block = await Http.GetFromJsonAsync<BlockDTO>($"api/Blocks/{blockId}");
+        //block.ApartmentIds.ForEach()
+
+        foreach(int apId in block.ApartmentIds)
+        {
+            apartments.Add(await Http.GetFromJsonAsync<ApartmentDTO>($"api/Apartments/{apId}"));
+        }
+
+        //apartments = await block.ApartmentIds.Select(async apId => await Http.GetFromJsonAsync<ApartmentDTO>($"api/Apartments/{apId}")).ToList<ApartmentDTO>();
+
+    }
+
+    void ApartmentNavigate(int block_id, int ap_id)
+    {
+        UriHelper.NavigateTo($"blocks/{block_id}/apartments/{ap_id}/bills", forceLoad : true);
+    }
+
+    void ApartmentInsert()
+    {
+        //UriHelper.NavigateTo($"blocks/{block_id}/apartments/{ap_id}/bills", forceLoad : true);
+        UriHelper.NavigateTo($"insertApartment?blockId={blockId}");
+    }
+
+     void ApartmentNavigateEdit(int block_id, int ap_id)
+    {
+        UriHelper.NavigateTo($"editApartment?apartmentId={ap_id}");
+    }
+
+    void goBackToBlocks()
+    {
+        UriHelper.NavigateTo("blocks", forceLoad : true);
+    }
+}

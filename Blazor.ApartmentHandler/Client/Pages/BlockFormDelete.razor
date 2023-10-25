@@ -1,0 +1,77 @@
+﻿@page "/deleteBlock"
+@using Blazor.ApartmentHandler.Shared.Entities
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<PageTitle>Delete Block</PageTitle>
+
+<h1>Delete Block</h1>
+
+<p>Complete the following form to edit the apartment.</p>
+<EditForm Model="block" OnSubmit="@FormSubmitted">
+	<DataAnnotationsValidator />
+	<ValidationSummary/>
+
+	<p>
+		<label>Block id</label>
+		<InputNumber @bind-Value="blockId" readonly="readonly"></InputNumber>
+	</p>
+	
+	
+	
+
+	<button type="submit">Delete</button>
+</EditForm>
+
+
+@code {
+	[Parameter]
+	[SupplyParameterFromQuery(Name="blockId")]
+	//public int? apartmentId { get; set; }
+	public int? blockId { get; set; }
+	//private int numberOfPersons = 0;
+	public EditContext? editContext;
+	//private ApartmentDTO apartmentDTO= new() { };
+	//private ApartmentDTO apartment = new() { };
+	private Block block=new() { };
+
+
+	protected override void OnInitialized()
+	{
+		//block.Id=blockId;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+
+		block = await Http.GetFromJsonAsync<Block>($"api/Block/{blockId}");// pt update: gasesc factura si de acolo extrag id-ul apartamentului
+		// exista apartamentul asta?
+		//numberOfPersons = apartment.NumberOfPersons;
+	}
+
+	async Task FormSubmitted(EditContext editContext)
+	{
+		bool formIsValid = editContext.Validate();
+
+		if (formIsValid) {
+			var json_body = new
+			{
+				//BillId = billDTO.BillId,
+				//Month = billDTO.Month,
+				//Year = billDTO.Year,
+				//ApartmentId = billDTO.ApartmentId,
+				//WaterConsumption = billDTO.WaterConsumption,
+				//BillValue = billDTO.BillValue
+				//Id=apartment.Id,
+				//Nr=apartment.Nr,
+				//NumberOfPersons=apartment.NumberOfPersons,
+				Id=block.Id
+			};
+
+			await Http.DeleteAsync($"api/Blocks/{blockId}");
+
+			UriHelper.NavigateTo($"blocks");
+		}
+	}
+
+}

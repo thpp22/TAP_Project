@@ -1,0 +1,101 @@
+﻿@page "/insertBill"
+@using Blazor.ApartmentHandler.Shared.Entities
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<PageTitle>Insert Bill</PageTitle>
+
+<h1>Insert Bill</h1>
+
+<p>Complete the following form to add the bill.</p>
+<EditForm Model="billDTO" OnSubmit="@FormSubmitted">
+	<DataAnnotationsValidator />
+	<ValidationSummary/>
+
+	<p>
+		<label>Apartment id</label>
+		<InputNumber @bind-Value="billDTO.ApartmentId" readonly="readonly"></InputNumber>
+	</p>
+	<p>
+		<label>Number of Persons</label>
+		<InputNumber @bind-Value="numberOfPersons" readonly="readonly"></InputNumber>
+	</p>
+	<p>
+		<label>Water Consumption</label>
+		<InputNumber @bind-Value="billDTO.WaterConsumption"></InputNumber>
+	</p>
+	<p>
+		<label>Year</label>
+		<InputNumber @bind-Value="billDTO.Year"></InputNumber>
+	</p>
+	<p>
+		<label>Month</label>
+		<InputNumber @bind-Value="billDTO.Month"></InputNumber>
+	</p>
+	<p>
+		<label>Bill Value</label>
+		<InputNumber @bind-Value="billDTO.BillValue" readonly="readonly"></InputNumber>
+	</p>
+
+	<button type="button" @onclick="@calculateBill">Calculate Bill Value</button>
+
+	<button type="submit">Submit</button>
+</EditForm>
+
+
+@code {
+	[Parameter]
+	[SupplyParameterFromQuery(Name="apartmentId")]
+	public int? apartmentId { get; set; }
+	private int numberOfPersons = 0;
+	public EditContext? editContext;
+
+	private BillDTO billDTO = new() { };
+	private ApartmentDTO apartment;
+
+	private void calculateBill()
+	{
+		if (apartment != null) {
+
+			Calculator calculator = new Calculator();
+			double billVal = calculator.Calculate(apartment.NumberOfPersons, billDTO.WaterConsumption);
+			billDTO.BillValue = billVal;
+		}
+
+	}
+
+	protected override void OnInitialized()
+	{
+		billDTO.ApartmentId = (int)apartmentId;
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+
+		apartment = await Http.GetFromJsonAsync<ApartmentDTO>($"api/Apartments/{apartmentId}");// pt update: gasesc factura si de acolo extrag id-ul apartamentului
+		// exista apartamentul asta?
+		numberOfPersons = apartment.NumberOfPersons;
+	}
+
+	async Task FormSubmitted(EditContext editContext)
+	{
+		bool formIsValid = editContext.Validate();
+
+		if (formIsValid) {
+			var json_body = new
+			{
+				BillId = billDTO.BillId,
+				Month = billDTO.Month,
+				Year = billDTO.Year,
+				ApartmentId = billDTO.ApartmentId,
+				WaterConsumption = billDTO.WaterConsumption,
+				BillValue = billDTO.BillValue
+			};
+
+			await Http.PostAsJsonAsync("api/Bills", json_body);
+
+			UriHelper.NavigateTo($"blocks/{apartment.BlockId}/apartments/{apartmentId}/bills");
+		}
+	}
+
+}

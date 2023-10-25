@@ -1,0 +1,62 @@
+﻿@page "/blocks"
+@using Blazor.ApartmentHandler.Shared.Entities
+@inject HttpClient Http
+@inject NavigationManager UriHelper
+
+<PageTitle>Blocks</PageTitle>
+
+<h1>Blocks</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (blocks == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="@BlockInsert">Insert Block</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Block Id</th>
+                <th>Number of Apartments</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var block in blocks)
+        {
+            <tr>
+                <td>@block.Id</td>
+                <td>@block.ApartmentIds.Count</td>
+                <td><button class="btn btn-primary" @onclick="() => BlockNavigate(block.Id)">View Apartments</button></td>
+                <td><button class="btn btn-primary" @onclick="() => BlockNavigateDelete(block.Id)">Delete Block</button></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@code {
+    private BlockDTO[]? blocks;
+
+    protected override async Task OnInitializedAsync()
+    {
+        blocks = await Http.GetFromJsonAsync<BlockDTO[]>("api/Blocks");  
+    }
+
+    void BlockNavigate(int id)
+    {
+        UriHelper.NavigateTo($"blocks/{id}/apartments", forceLoad : true);
+    }
+    void BlockInsert()
+    {
+         UriHelper.NavigateTo($"insertBlock");
+    }
+     void BlockNavigateDelete(int block_id)
+    {
+       UriHelper.NavigateTo($"deleteBlock?blockId={block_id}");
+       // UriHelper.NavigateTo($"insertApartment?blockId={block_id}");
+    }
+}
